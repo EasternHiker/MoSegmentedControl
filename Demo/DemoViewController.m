@@ -8,13 +8,15 @@
 
 #import "DemoViewController.h"
 
+@interface DemoViewController ()
+
+@property (nonatomic, strong) UIView *colorView;
+@property (nonatomic, strong) MoSegmentedControl *segmentedControl;
+
+@end
+
 @implementation DemoViewController
 
-- (void) dealloc {
-    [_colorView release];
-    [_segmentedControl release];
-    [super dealloc];
-}
 
 - (void) updateColor {    
     _colorView.backgroundColor = [UIColor colorWithRed:[_segmentedControl isSegmentSelected:0]
@@ -27,14 +29,12 @@
 {    
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 460)];
     self.view = view;
-    [view release];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, 320, 40)];
     label.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
     label.textAlignment = UITextAlignmentCenter;
     label.text = @"RGB color components";
     [self.view addSubview:label];
-    [label release];
     
     _colorView = [[UIView alloc] initWithFrame:CGRectMake(20, 120, 280, 290)];
     _colorView.backgroundColor = [UIColor blackColor];
@@ -54,11 +54,10 @@
 } 
 
 - (void) viewDidUnload {
-    [_colorView release];
-    _colorView = nil;
-    
-    [_segmentedControl release];
-    _segmentedControl = nil;
+    self.colorView = nil;
+    self.segmentedControl = nil;
+    self.view = nil;
+    [super viewDidUnload];
 }
 
 - (BOOL) shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation {

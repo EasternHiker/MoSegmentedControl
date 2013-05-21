@@ -10,10 +10,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface MoSegmentedControl : UIControl {
-    int _numberOfSegments;
-    NSMutableArray *_buttons;
-}
+@interface MoSegmentedControl : UIControl
 
 - (id)initWithItems:(NSArray *)items;
 - (void)setTitle:(NSString *)title forSegmentAtIndex:(NSUInteger)segment;

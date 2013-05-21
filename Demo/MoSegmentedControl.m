@@ -10,6 +10,12 @@
 #import "MoSegmentedControl.h"
 #import <QuartzCore/QuartzCore.h>
 
+@interface MoSegmentedControl()
+
+@property (nonatomic) int numberOfSegments;
+@property (nonatomic, strong) NSMutableArray *buttons;
+
+@end
 
 @implementation MoSegmentedControl
 
@@ -98,10 +104,6 @@
     return self;
 }
 
-- (void) dealloc {
-    [_buttons release];
-    [super dealloc];
-}
 
 #pragma mark - public
 

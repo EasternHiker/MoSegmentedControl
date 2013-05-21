@@ -9,9 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "MoSegmentedControl.h"
 
-@interface DemoViewController : UIViewController {
-    UIView* _colorView;
-    MoSegmentedControl* _segmentedControl;
-}
+@interface DemoViewController : UIViewController
 
 @end
