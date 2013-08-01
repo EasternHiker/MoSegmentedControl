@@ -10,15 +10,27 @@
 #import "MoSegmentedControl.h"
 #import <QuartzCore/QuartzCore.h>
 
-@interface MoSegmentedControl()
-
-@property (nonatomic) int numberOfSegments;
-@property (nonatomic, strong) NSMutableArray *buttons;
+@interface MoSegmentedControl() {
+    NSMutableArray *_buttons;
+}
 
 @end
 
 @implementation MoSegmentedControl
 
+@synthesize numberOfSegments = _numberOfSegments;
+
+
+- (id)initWithCoder:(NSCoder *)coder
+{
+    self = [super initWithCoder:coder];
+    if (self)
+    {
+        // This instance will be initialized later in the awakeFromNib method.
+    }
+
+    return self;
+}
 
 - (id)initWithItems:(NSArray *)items {
     self = [super init];
@@ -26,13 +38,30 @@
     if (self) {
         
         _numberOfSegments = [items count];
+
+        self.frame = CGRectMake(0, 0, 240, 30);
+
+        [self commonInitialize];
+
+        for (int i = 0; i < self.numberOfSegments; i++) {
+            if ((nil != items) && (i < items.count)) {
+                NSObject *content = [items objectAtIndex:i];
+                if ([content isKindOfClass:[NSString class]]) {
+                    [self setTitle:(NSString *)content forSegmentAtIndex:i];
+                }
+            }
+        }
+    }
+    return self;
+}
+
+- (void)commonInitialize
+{
         _buttons = [[NSMutableArray alloc] initWithCapacity:_numberOfSegments];
         float cornerRadius = 10.f;
         float borderWidth = 1.f;
         
         self.autoresizesSubviews = YES;
-        
-        self.frame = CGRectMake(0, 0, 240, 30);
         
         float totalWidth = self.frame.size.width;
         int visibleButtonWidth = totalWidth / _numberOfSegments;
@@ -46,12 +75,7 @@
         for (int i = 0; i < _numberOfSegments; i++) {
             UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
             [_buttons addObject:button];
-            
-            NSObject *content = [items objectAtIndex:i];
-            if ([content isKindOfClass:[NSString class]]) {
-                [button setTitle:(NSString *)content forState:UIControlStateNormal];
-            }
-            
+
             int w = visibleButtonWidth;
             int x = visibleButtonWidth * i;
             
@@ -99,11 +123,13 @@
                 [self addSubview:button];
             }
         }
-        
-    }
-    return self;
 }
 
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    [self commonInitialize];
+}
 
 #pragma mark - public
 

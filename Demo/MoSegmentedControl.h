@@ -12,9 +12,14 @@
 
 @interface MoSegmentedControl : UIControl
 
+
+@property (nonatomic, readonly) int numberOfSegments;
+
 - (id)initWithItems:(NSArray *)items;
 - (void)setTitle:(NSString *)title forSegmentAtIndex:(NSUInteger)segment;
 - (BOOL) isSegmentSelected:(int)segment;
 - (void) makeSegment:(int)segment selected:(BOOL)selected;
+
+- (id)initWithCoder:(NSCoder *)coder;
 
 @end
